@@ -1,0 +1,52 @@
+************upload command in chef server*************
+
+step-1 knife cookbook upload apache-cookbook
+
+step-2 knife cookbook list (check upload file)
+
+step-3 knife node run-list set node1 "recipe[apache-cookbook::apache-recipe]"
+
+step-4 knife node show node1
+
+Note:- If you changed any content you should to upload in node server.
+
+
+
+*********connect to node by putty*************************
+
+Step-1 chef-client
+
+*********Automatically file update on node from chef-server**********
+
+For only 1 node
+
+Step-1 [node1]#  vi /etc/crontab
+
+
+step-2 [node]#* * * * * root chef-client
+
+
+Note-change content on workstation & upload chef-server
+
+************Multi nodes automation********************
+
+
+Note-When you create new node2 instance
+
+#!bin/bash
+yum update -y
+echo * * * * * root chef-client">>etc/crontab
+
+******workstation command****
+
+Step-1 knife bootstrap 172.31.52.25 --ssh-user ec2-user --sudo -i node-key.pem -N node2 
+
+Step-2 Y
+
+Step-3 knife node run-list set node2 "recipe[apache-cookbook::apache-recipe]"
+ 
+step-4  vi cookbooks/apache-cookbook/recipes/apache-recipe.rb
+ 
+step-5  knife cookbook upload apache-cookbook
+
+Step-6 paste node to public IP in browser check you content

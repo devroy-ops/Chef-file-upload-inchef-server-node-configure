@@ -1,4 +1,5 @@
 ************upload command in chef server*************
+[workstation commands]
 
 step-1 knife cookbook upload apache-cookbook
 
